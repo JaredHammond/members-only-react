@@ -1,30 +1,33 @@
 import Header from "./components/Header";
-//import ProfileUser from "./components/ProfileUser";
+import ProfileUser from "./components/ProfileUser";
 import UserInput from "./components/UserInput";
-//import AccountDeleteButton from "./components/AccountDeleteButton";
+import Button from "./components/Button";
 
 function Profile() {
-  // For layout testing
-  const user = {
-    name: "Jared Hammond",
-    email: "jared@jared.com",
-    membership_level: "Member",
-  };
-
   return (
     <>
       <Header isLoggedIn={true} />
-      {/* <ProfileUser user={user} /> */}
-      <UserInput
-        type='text'
-        label='Enter secret password to become a member:'
-        name='member_secret'
-      />
-      {/* <AccountDeleteButton user /> */}
+      <main>
+        <ProfileUser
+          name="Jared"
+          email="jared@jared.com"
+          memberLevel="Member"
+        />
+        <UserInput
+          type="text"
+          label="Enter secret password to become a member:"
+          name="member_secret"
+          placeholder="Enter secret..."
+        />
+        <Button text="Submit Secret" onClick={() => console.log("click")} />
+        <h3>Delete Account</h3>
+        <Button
+          text="Delete Account"
+          onClick={() => console.log("Delete Account")}
+        />
+      </main>
     </>
   );
 }
 
 export default Profile;
-
-
