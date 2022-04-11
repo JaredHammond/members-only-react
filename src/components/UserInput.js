@@ -1,6 +1,8 @@
 function UserInput(props) {
     const { type, placeholder, label, name } = props;
 
+    const input = type === 'textarea' ? 'textarea' : 'input'
+
     return(
         <div className="form-group">
             <label htmlFor={name}>{label}</label>

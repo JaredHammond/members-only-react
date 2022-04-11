@@ -1,6 +1,6 @@
 import Messages from "../components/Messages";
 import Header from "../components/Header";
-import NewMessage from "../components/NewMessage";
+import BigButton from "../components/BigButton";
 
 const messages = [
   {
@@ -39,7 +39,7 @@ function App() {
         <h1>Welcome to Members Only</h1>
         <p>You can share a message, but only members get to see who sent it!</p>
       </section>
-      {isLoggedIn && <NewMessage />}
+      {isLoggedIn && <BigButton />}
       <Messages messages={messages} />
     </div>
   );
