@@ -1,5 +1,6 @@
-import Messages from "./components/Messages";
-import Header from "./components/Header";
+import Messages from "../components/Messages";
+import Header from "../components/Header";
+import NewMessage from "../components/NewMessage";
 
 const messages = [
   {
@@ -28,10 +29,17 @@ const messages = [
   },
 ];
 
+const isLoggedIn = true
+
 function App() {
   return (
     <div className="App">
-      <Header isLoggedIn={false} />
+      <Header isLoggedIn={isLoggedIn} />
+      <section className="card center">
+        <h1>Welcome to Members Only</h1>
+        <p>You can share a message, but only members get to see who sent it!</p>
+      </section>
+      {isLoggedIn && <NewMessage />}
       <Messages messages={messages} />
     </div>
   );

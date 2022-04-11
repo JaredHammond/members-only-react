@@ -1,7 +1,7 @@
-import Header from "./components/Header";
-import ProfileUser from "./components/ProfileUser";
-import UserInput from "./components/UserInput";
-import Button from "./components/Button";
+import Header from "../components/Header";
+import ProfileUser from "../components/ProfileUser";
+import UserInput from "../components/UserInput";
+import Button from "../components/Button";
 
 function Profile() {
   return (

@@ -130,6 +130,10 @@ table {
 
 /* My CSS */
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: linear-gradient(135deg, #f9f1ff, #fdf9ff);
   font-family: "Source Sans Pro", sans-serif;
@@ -195,8 +199,11 @@ textarea:focus {
   outline-style: none;
   background-color: inherit;
   border: none;
-  margin: 15px 15px 0 0;
   flex: 1;
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-btn:hover {
@@ -205,6 +212,8 @@ textarea:focus {
 
 .login-area {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .text-input {
@@ -302,14 +311,15 @@ textarea:focus {
 }
 
 .new-message {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
   text-align: center;
-  border: #5e4ae3 5px solid;
-  max-width: 520px;
+  border: #5E4AE3 5px solid;
+  max-width: 500px;
   height: 40px;
   margin: 20px auto;
-  padding-top: 10px;
   border-radius: 8px;
   font-weight: 700;
   font-size: 25px;

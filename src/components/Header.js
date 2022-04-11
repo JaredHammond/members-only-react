@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Header = (props) => {
   const { isLoggedIn } = props;
   let loginArea;
@@ -5,23 +7,15 @@ const Header = (props) => {
   if (isLoggedIn) {
     loginArea = (
       <>
-        <button className="nav-btn" type="submit">
-          Profile
-        </button>
-        <button className="nav-btn" type="submit">
-          Logout
-        </button>
+        <Link className="nav-btn" to="/profile">Profile</Link>
+        <Link className="nav-btn" to="/logout">Logout</Link>
       </>
     );
   } else {
     loginArea = (
       <>
-        <button className="nav-btn" type="submit">
-          Signup
-        </button>
-        <button className="nav-btn" type="submit">
-          Login
-        </button>
+        <Link className="nav-btn" to="/signup">Sign Up</Link>
+        <Link className="nav-btn" to="/login">Login</Link>
       </>
     );
   }
