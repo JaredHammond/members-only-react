@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+const { addTokenToStore } = require('../utils/tokenUtils')
 
 exports.user_post = [
   body("first_name", "First name is required")
@@ -85,10 +86,17 @@ exports.login_post = (req, res, next) => {
       if (err) {
         res.send(err);
       }
+
+      // Removes Mongoose methods/prototypes then extracts password hash out of the remaining object
+      // Rest object is sent to client as "user".
+      const { password_hash, ...rest } = user.toJSON();
   
-    // generate a signed son web token with the contents of user object and return it in the response
-    const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET || 'secret');
-      return res.json({user, token});
+      // generate a signed son web token with the contents of user object and return it in the response
+      const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET || 'secret', {expiresIn: 30});
+      
+      addTokenToStore(token);
+      
+      return res.json({user: rest, token});
     });
   })(req, res);
 }
