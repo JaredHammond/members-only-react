@@ -5,11 +5,14 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const Sentry = require("@sentry/node");
 const Tracing = require("@sentry/tracing");
+const indexRouter = require("./routes/index");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+require("dotenv").config();
 
 var app = express();
+
+require("./databaseConfig.js");
+require("./authConfig.js");
 
 Sentry.init({
   dsn: "https://3f0be2a67d074347ae2116ac02ce25a4@o1196838.ingest.sentry.io/6319764",
@@ -39,7 +42,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.get("/debug-sentry", function mainHandler(req, res) {
   throw new Error("My first Sentry error!");
 });
@@ -59,7 +61,11 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.json(err);
+});
+
+app.listen(process.env.PORT || 3500, () => {
+  console.log("Server started successfully");
 });
 
 module.exports = app;

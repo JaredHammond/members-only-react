@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   first_name: { type: String, required: true, maxLength: 100 },
-  last_name: { type: String, required: true, maxLength: 100 },
+  family_name: { type: String, required: true, maxLength: 100 },
   username: { type: String, required: true, maxLength: 100 },
   password_hash: { type: String, required: true },
   is_member: { type: Boolean, default: false },
