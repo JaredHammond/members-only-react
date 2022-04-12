@@ -9,14 +9,13 @@ const ExtractJWT = passportJWT.ExtractJwt;
 passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ username: username }, (err, user) => {
-      console.log(user)
       if (err) { 
         return done(err);
       }
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-      bcrypt.compare(password, user.password, (err, success) => {
+      bcrypt.compare(password, user.password_hash, (err, success) => {
         if (err) {return done(err)}
 
         if (!success) {
