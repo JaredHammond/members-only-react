@@ -3,6 +3,7 @@ import App from "./views/App";
 import Profile from "./views/Profile";
 import SignUp from "./views/SignUp";
 import Login from "./views/Login";
+import NewMessage from "./views/NewMessage";
 
 function RouteSwitch() {
     return (
@@ -12,6 +13,7 @@ function RouteSwitch() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/message/new" element={<NewMessage />} />
             </Routes>
         </BrowserRouter>
     );

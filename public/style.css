@@ -134,6 +134,12 @@ table {
   box-sizing: border-box;
 }
 
+#root {
+  max-width: 900px;
+  width: 100%;
+  margin: auto;
+}
+
 body {
   background: linear-gradient(135deg, #f9f1ff, #fdf9ff);
   font-family: "Source Sans Pro", sans-serif;
@@ -316,7 +322,7 @@ textarea:focus {
   align-items: center;
   text-decoration: none;
   text-align: center;
-  border: #5E4AE3 5px solid;
+  border: #5e4ae3 5px solid;
   max-width: 500px;
   height: 40px;
   margin: 20px auto;

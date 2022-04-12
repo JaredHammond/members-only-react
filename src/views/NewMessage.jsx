@@ -7,19 +7,18 @@ const NewMessage = (props) => {
         <>
         <Header isLoggedIn={false} />
         <main>
-          <h1>Login</h1>
+          <h1>New Message</h1>
     
           <form onSubmit={(e)=> e.preventDefault()}> 
             <UserInput
-              name="username"
-              label="Username:"
+              name="title"
+              label="Title:"
               type="text"
             />
-            <UserInput
-              name="message-body"
-              label="Message"
-              type="textarea"
-            />
+            <div className="form-group">
+              <label htmlFor="body">Message:</label>
+              <textarea name='body' className="text-input" placeholder='Enter message here...' />
+            </div>
             <Button 
               text="Submit"
               type="submit"
