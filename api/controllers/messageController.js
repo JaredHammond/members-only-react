@@ -5,20 +5,29 @@ const message = require("../models/message");
 exports.messages_get = async (req, res, next) => {
   let messages = await Message.find()
     .sort({ timestamp: -1 })
-    .populate('user')
+    .populate("user")
     .exec()
     .catch((err) => next(err));
 
-  messages.forEach(message => {
-    message = message.toJSON()
-    if (!req.user?.isMember) {
-      message.user = 'Anon'
-    } else {
-      message.user = message.user.name
-    }
-  })
+  console.log(req.user?.is_member);
 
-  return res.status(200).json(messages);
+  let response = [];
+  messages.forEach((message) => {
+    // Destructure user document out of message document
+    // (toJSON removes all the underlying methods and whatnot)
+    const { user, ...rest } = message.toJSON();
+
+    // If the user is not authenticated or is not a member, they don't get the author's name
+    if (!req.user?.is_member) {
+      rest.user = "Anonymous";
+      response.push(rest);
+    } else {
+      rest.user = message.user.name;
+      response.push(rest);
+    }
+  });
+
+  return res.status(200).json(response);
 };
 
 exports.new_message_post = [
