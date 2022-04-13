@@ -1,12 +1,22 @@
 const Message = require("../models/message");
 const { body, validationResult } = require("express-validator");
+const message = require("../models/message");
 
 exports.messages_get = async (req, res, next) => {
   let messages = await Message.find()
     .sort({ timestamp: -1 })
-    .populate("user", { select: "name" })
+    .populate('user')
     .exec()
     .catch((err) => next(err));
+
+  messages.forEach(message => {
+    message = message.toJSON()
+    if (!req.user?.isMember) {
+      message.user = 'Anon'
+    } else {
+      message.user = message.user.name
+    }
+  })
 
   return res.status(200).json(messages);
 };

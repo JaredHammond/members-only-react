@@ -12,7 +12,7 @@ const UserSchema = new Schema({
 
 // Virtual property of name
 UserSchema.virtual("name").get(function () {
-  return this.first_name + " " + this.last_name;
+  return this.first_name + " " + this.family_name;
 });
 
 // Virtual member level property
