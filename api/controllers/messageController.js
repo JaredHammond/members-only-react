@@ -1,6 +1,6 @@
 const Message = require("../models/message");
 const { body, validationResult } = require("express-validator");
-const message = require("../models/message");
+
 
 exports.messages_get = async (req, res, next) => {
   let messages = await Message.find()
@@ -13,17 +13,11 @@ exports.messages_get = async (req, res, next) => {
 
   let response = [];
   messages.forEach((message) => {
-    // Destructure user document out of message document
-    // (toJSON removes all the underlying methods and whatnot)
-    const { user, ...rest } = message.toJSON();
-
     // If the user is not authenticated or is not a member, they don't get the author's name
     if (!req.user?.is_member) {
-      rest.user = "Anonymous";
-      response.push(rest);
+      response.push(cleanUpUserData(message, true))
     } else {
-      rest.user = message.user.name;
-      response.push(rest);
+      response.push(cleanUpUserData(message, false));
     }
   });
 
@@ -64,3 +58,33 @@ exports.new_message_post = [
     });
   },
 ];
+
+exports.specific_message_get = async (req, res, next) => {
+  try {
+      let message = await Message.findById(req.params.id)
+      .populate('user')
+      .exec()
+      .catch(err => next(err))
+    
+    message = cleanUpUserData(message, false)
+    res.status(200).json(message);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+/* Utils for message controller */
+function cleanUpUserData(message, makeAnonymous) {
+    // Destructure user document out of message document
+  // (toJSON removes all the underlying methods and whatnot)
+  const { user, ...rest } = message.toJSON();
+
+  // If the user is not authenticated or is not a member, they don't get the author's name
+  if (makeAnonymous) {
+    rest.user = "Anonymous";
+    return rest
+  } else {
+    rest.user = message.user.name;
+    return rest
+  }
+}

@@ -31,4 +31,10 @@ router.post(
   messageController.new_message_post
 );
 
+router.get(
+  "/message/:id",
+  passport.authenticate("jwt", {session: false}),
+  messageController.specific_message_get
+);
+
 module.exports = router;
