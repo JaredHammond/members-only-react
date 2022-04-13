@@ -21,7 +21,6 @@ exports.new_message_post = [
     .isLength({ min: 1, max: 500 })
     .escape(),
   (req, res, next) => {
-    console.log(req.user);
     // Look for validation errors
     let errors = validationResult(req);
 
@@ -31,18 +30,18 @@ exports.new_message_post = [
       return;
     }
 
-    // // Create a new message document and save it to the db
-    // let message = new Message({
-    //   title: req.body.post_title,
-    //   message: req.body.post_body,
-    //   user: req.user,
-    // }).save((err) => {
-    //   if (err) {
-    //     return next(err);
-    //   }
+    // Create a new message document and save it to the db
+    Message({
+      title: req.body.post_title,
+      message: req.body.post_body,
+      user: req.user._id,
+    }).save((err) => {
+      if (err) {
+        return next(err);
+      }
 
-    //   // Success, so redirect back
-    //   res.redirect("/");
-    // });
+      // Success, so send success status
+      res.sendStatus(201);
+    });
   },
 ];
