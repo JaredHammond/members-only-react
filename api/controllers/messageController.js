@@ -9,8 +9,6 @@ exports.messages_get = async (req, res, next) => {
     .exec()
     .catch((err) => next(err));
 
-  console.log(req.user?.is_member);
-
   let response = [];
   messages.forEach((message) => {
     // If the user is not authenticated or is not a member, they don't get the author's name
@@ -59,7 +57,7 @@ exports.new_message_post = [
   },
 ];
 
-exports.specific_message_get = async (req, res, next) => {
+exports.message_get = async (req, res, next) => {
   try {
       let message = await Message.findById(req.params.id)
       .populate('user')
@@ -69,14 +67,33 @@ exports.specific_message_get = async (req, res, next) => {
     message = cleanUpUserData(message, false)
     res.status(200).json(message);
   } catch (error) {
-    console.log(error)
+    next(err)
+  }
+}
+
+exports.message_delete = async (req, res, next) => {
+  try {
+    let message = await Message.findById(req.params.id)
+    .exec()  
+
+  // Only authors of a message and admins can delete messages. Everyone else gets 403'd into the shadow realm.
+  if (String(message.user._id) !== String(req.user._id) && !req.user.is_admin) {
+    return res.status(403).send('forbidden')
+  }
+
+  await Message.deleteOne({_id: message._id})
+
+  return res.sendStatus(200);
+
+  } catch (err) {
+    next(err)
   }
 }
 
 /* Utils for message controller */
 function cleanUpUserData(message, makeAnonymous) {
-    // Destructure user document out of message document
-  // (toJSON removes all the underlying methods and whatnot)
+  // Destructure user document out of message document
+  // (toJSON removes all the Mongoose methods and whatnot)
   const { user, ...rest } = message.toJSON();
 
   // If the user is not authenticated or is not a member, they don't get the author's name
