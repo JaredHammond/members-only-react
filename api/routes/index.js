@@ -3,17 +3,27 @@ const passport = require("passport");
 const router = express.Router();
 const authController = require("../controllers/authController");
 const messageController = require("../controllers/messageController");
+const userController = require("../controllers/userController");
 // const profileController = require("../controllers/profileController");
 
 //////////////////////////
 /* AUTHORIZATION ROUTES */
 //////////////////////////
 
-// POST to create new user object
-router.post("/user", authController.user_post);
-
 // POST to login user and get JSON webtoken
 router.post("/login", authController.login_post);
+
+/////////////////
+/* USER ROUTES */
+/////////////////
+
+router.post("/user", authController.user_post);
+
+router.patch(
+  "/user",
+  passport.authenticate("jwt", { session: false }),
+  userController.user_upgrade_level_patch
+);
 
 ////////////////////
 /* MESSAGE ROUTES */
