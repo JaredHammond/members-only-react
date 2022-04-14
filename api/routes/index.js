@@ -3,7 +3,6 @@ const passport = require("passport");
 const router = express.Router();
 const authController = require("../controllers/authController");
 const messageController = require("../controllers/messageController");
-const message = require("../models/message");
 // const profileController = require("../controllers/profileController");
 
 //////////////////////////
@@ -34,13 +33,13 @@ router.post(
 
 router.get(
   "/message/:id",
-  passport.authenticate("jwt", {session: false}),
+  passport.authenticate("jwt", { session: false }),
   messageController.message_get
 );
 
 router.delete(
   "/message/:id",
-  passport.authenticate("jwt", {session: false}),
+  passport.authenticate("jwt", { session: false }),
   messageController.message_delete
 );
 

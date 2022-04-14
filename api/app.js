@@ -6,10 +6,13 @@ var logger = require("morgan");
 const Sentry = require("@sentry/node");
 const Tracing = require("@sentry/tracing");
 const indexRouter = require("./routes/index");
+const cors = require("cors");
 
 require("dotenv").config();
 
 var app = express();
+
+app.use(cors());
 
 require("./databaseConfig.js");
 require("./authConfig.js");

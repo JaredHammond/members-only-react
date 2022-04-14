@@ -1,7 +1,6 @@
 const Message = require("../models/message");
 const { body, validationResult } = require("express-validator");
 
-
 exports.messages_get = async (req, res, next) => {
   let messages = await Message.find()
     .sort({ timestamp: -1 })
@@ -13,7 +12,7 @@ exports.messages_get = async (req, res, next) => {
   messages.forEach((message) => {
     // If the user is not authenticated or is not a member, they don't get the author's name
     if (!req.user?.is_member) {
-      response.push(cleanUpUserData(message, true))
+      response.push(cleanUpUserData(message, true));
     } else {
       response.push(cleanUpUserData(message, false));
     }
@@ -59,36 +58,37 @@ exports.new_message_post = [
 
 exports.message_get = async (req, res, next) => {
   try {
-      let message = await Message.findById(req.params.id)
-      .populate('user')
+    let message = await Message.findById(req.params.id)
+      .populate("user")
       .exec()
-      .catch(err => next(err))
-    
-    message = cleanUpUserData(message, false)
+      .catch((err) => next(err));
+
+    message = cleanUpUserData(message, false);
     res.status(200).json(message);
-  } catch (error) {
-    next(err)
+  } catch (err) {
+    next(err);
   }
-}
+};
 
 exports.message_delete = async (req, res, next) => {
   try {
-    let message = await Message.findById(req.params.id)
-    .exec()  
+    let message = await Message.findById(req.params.id).exec();
 
-  // Only authors of a message and admins can delete messages. Everyone else gets 403'd into the shadow realm.
-  if (String(message.user._id) !== String(req.user._id) && !req.user.is_admin) {
-    return res.status(403).send('forbidden')
-  }
+    // Only authors of a message and admins can delete messages. Everyone else gets 403'd into the shadow realm.
+    if (
+      String(message.user._id) !== String(req.user._id) &&
+      !req.user.is_admin
+    ) {
+      return res.status(403).send("forbidden");
+    }
 
-  await Message.deleteOne({_id: message._id})
+    await Message.deleteOne({ _id: message._id });
 
-  return res.sendStatus(200);
-
+    return res.sendStatus(200);
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};
 
 /* Utils for message controller */
 function cleanUpUserData(message, makeAnonymous) {
@@ -99,9 +99,9 @@ function cleanUpUserData(message, makeAnonymous) {
   // If the user is not authenticated or is not a member, they don't get the author's name
   if (makeAnonymous) {
     rest.user = "Anonymous";
-    return rest
+    return rest;
   } else {
     rest.user = message.user.name;
-    return rest
+    return rest;
   }
 }
