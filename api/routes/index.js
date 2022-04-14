@@ -17,7 +17,7 @@ router.post("/login", authController.login_post);
 /* USER ROUTES */
 /////////////////
 
-router.post("/user", authController.user_post);
+router.post("/user", userController.user_post);
 
 router.patch(
   "/user",
