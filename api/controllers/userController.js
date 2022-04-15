@@ -13,7 +13,11 @@ exports.user_post = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body("username", "Username is required").trim().exists().escape(),
+  body("username", "Username is required")
+    .trim()
+    .exists()
+    .isLength({ min: 4 })
+    .escape(),
   body("password")
     .trim()
     .exists()
@@ -52,7 +56,10 @@ exports.user_post = [
           console.log(err);
           return next(err);
         }
-        res.sendStatus(201);
+        res.status(201).json({
+          code: 201,
+          message: "Created",
+        });
       });
     });
   },

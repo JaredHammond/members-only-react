@@ -33,7 +33,11 @@ exports.login_post = (req, res, next) => {
         expiresIn: "2h",
       });
 
-      return res.json({ user: rest, token });
+      return res.status(200).json({
+        code: 200,
+        user: rest,
+        token,
+      });
     });
   })(req, res);
 };

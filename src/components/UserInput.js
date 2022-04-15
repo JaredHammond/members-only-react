@@ -1,5 +1,5 @@
 function UserInput(props) {
-  const { type, placeholder, label, name } = props;
+  const { type, placeholder, label, name, value, onChange } = props;
 
   return (
     <div className="form-group">
@@ -9,6 +9,8 @@ function UserInput(props) {
         type={type}
         placeholder={placeholder || ""}
         name={name}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );
