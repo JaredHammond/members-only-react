@@ -25,6 +25,12 @@ router.patch(
   userController.user_upgrade_level_patch
 );
 
+router.delete(
+  "/user",
+  passport.authenticate("jwt", { session: false }),
+  userController.user_delete
+);
+
 ////////////////////
 /* MESSAGE ROUTES */
 ////////////////////
