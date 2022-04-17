@@ -2,23 +2,30 @@ const Message = require("../models/message");
 const { body, validationResult } = require("express-validator");
 
 exports.messages_get = async (req, res, next) => {
-  let messages = await Message.find()
-    .sort({ timestamp: -1 })
-    .populate("user")
-    .exec()
-    .catch((err) => next(err));
+  try {
+    let messages = await Message.find()
+      .sort({ timestamp: -1 })
+      .populate("user")
+      .exec()
+      .catch((err) => next(err));
 
-  let response = [];
-  messages.forEach((message) => {
-    // If the user is not authenticated or is not a member, they don't get the author's name
-    if (!req.user?.is_member) {
-      response.push(cleanUpUserData(message, true));
-    } else {
-      response.push(cleanUpUserData(message, false));
-    }
-  });
+    let response = [];
+    messages.forEach((message) => {
+      // If the user is not authenticated or is not a member, they don't get the author's name
+      if (
+        req.user?.is_member ||
+        String(message.user._id) === String(req.user._id)
+      ) {
+        response.push(cleanUpUserData(message, false));
+      } else {
+        response.push(cleanUpUserData(message, true));
+      }
+    });
 
-  return res.status(200).json(response);
+    return res.status(200).json(response);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.new_message_post = [
@@ -103,7 +110,10 @@ function cleanUpUserData(message, makeAnonymous) {
     rest.user = "Anonymous";
     return rest;
   } else {
-    rest.user = message.user.name;
+    rest.user = {
+      name: message.user.name,
+      _id: message.user._id,
+    };
     return rest;
   }
 }

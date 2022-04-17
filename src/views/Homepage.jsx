@@ -32,7 +32,7 @@ function Homepage() {
         <p>You can share a message, but only members get to see who sent it!</p>
       </section>
       {user && <BigButton />}
-      <Messages messages={messages} />
+      <Messages messages={messages} user={user} />
     </div>
   );
 }

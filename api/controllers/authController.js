@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 exports.login_post = (req, res, next) => {
   passport.authenticate("local", { session: false }, (err, user) => {
     if (err) {
-      console.log("auth error");
+      console.log("auth error", err);
       return res.status(400).json({
         code: 400,
         message: err,
@@ -15,7 +15,7 @@ exports.login_post = (req, res, next) => {
     if (!user) {
       return res.status(400).json({
         code: 400,
-        message: "No user by that name",
+        messages: ["Username or password is wrong"],
       });
     }
 

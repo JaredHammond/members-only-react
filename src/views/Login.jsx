@@ -8,7 +8,7 @@ import { UserAuthContext } from "../hooks/useUserAuth";
 const Login = () => {
   const navigate = useNavigate();
   const [validationErrs, setValidationErrs] = useState([]);
-  const UserContext = useContext(UserAuthContext);
+  const { loginUser } = useContext(UserAuthContext);
   const [formInfo, setFormInfo] = useState({
     username: "",
     password: "",
@@ -21,15 +21,13 @@ const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const errors = await UserContext.loginUser(formInfo)
-
+    const errors = await loginUser(formInfo)
     if (errors) {
-      setValidationErrs(errors.messages)
+      setValidationErrs(errors)
+    } else {
+      setValidationErrs([]);
+      navigate('/')
     }
-    
-    setValidationErrs([]);
-    navigate('/')
-
   }
 
   return (

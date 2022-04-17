@@ -7,6 +7,7 @@ import NewMessage from "./views/NewMessage";
 import Homepage from "./views/Homepage";
 import Layout from "./views/Layout";
 import DeleteUser from "./views/DeleteUser";
+import DeleteMessage from "./views/DeleteMessage";
 import { useUserAuth} from './hooks/useUserAuth'
 
 function RouteSwitch() {
@@ -51,6 +52,7 @@ function RouteSwitch() {
                     <Route path="signup/" element={<SignUp />} />
                     <Route path="login/" element={<Login />} />
                     <Route path="message/new" element={<NewMessage />} />
+                    <Route path="message/:messageId/delete" element={<DeleteMessage />} />
                 </Route>
             </Routes>
         </BrowserRouter>
