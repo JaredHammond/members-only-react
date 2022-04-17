@@ -105,6 +105,7 @@ exports.user_upgrade_level_patch = [
     }
 
     // If the request makes it this far, it's good to update
+
     const query = {
       ["is_" + req.body.userLevel]: true,
     };

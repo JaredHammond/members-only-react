@@ -29,7 +29,7 @@ exports.login_post = (req, res, next) => {
       const { password_hash, ...rest } = user.toJSON();
 
       // generate a signed son web token with the contents of user object and return it in the response
-      const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
+      const token = jwt.sign(rest, process.env.JWT_SECRET, {
         expiresIn: "2h",
       });
 
@@ -40,4 +40,20 @@ exports.login_post = (req, res, next) => {
       });
     });
   })(req, res);
+};
+
+exports.verify_token_post = (req, res, next) => {
+  try {
+    const user = jwt.verify(req.body.token, process.env.JWT_SECRET);
+    return res.status(200).json({
+      code: 200,
+      user: user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      code: 400,
+      user: null,
+    });
+  }
 };

@@ -13,6 +13,8 @@ const userController = require("../controllers/userController");
 // POST to login user and get JSON webtoken
 router.post("/login", authController.login_post);
 
+router.post("/verifyToken", authController.verify_token_post);
+
 /////////////////
 /* USER ROUTES */
 /////////////////

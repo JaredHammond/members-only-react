@@ -1,6 +1,5 @@
 import UserInput from "../components/UserInput";
 import Button from "../components/Button"
-import Header from "../components/Header";
 import { useState } from "react";
 import ErrorDisplay from "../components/ErrorDisplay";
 import { useNavigate } from "react-router-dom";
@@ -44,8 +43,6 @@ const SignUp = () => {
 
   return (
     <>
-    <Header isLoggedIn={false} />
-    <main>
       <h1>Sign Up</h1>
       <ErrorDisplay errors={validationErrs} />
       <form onSubmit={handleSubmit}> 
@@ -89,7 +86,6 @@ const SignUp = () => {
           type="submit"
         />
       </form>
-    </main>
     </>
   );
 };

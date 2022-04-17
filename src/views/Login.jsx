@@ -1,13 +1,14 @@
 import UserInput from "../components/UserInput";
 import Button from "../components/Button"
-import Header from "../components/Header";
 import ErrorDisplay from "../components/ErrorDisplay";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserAuthContext } from "../hooks/useUserAuth";
 
 const Login = () => {
   const navigate = useNavigate();
   const [validationErrs, setValidationErrs] = useState([]);
+  const UserContext = useContext(UserAuthContext);
   const [formInfo, setFormInfo] = useState({
     username: "",
     password: "",
@@ -20,21 +21,19 @@ const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    let response = await fetch("http://localhost:3500/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formInfo),
-    });
-    let data = await response.json();
-    console.log(data);
+    const errors = await UserContext.loginUser(formInfo)
+
+    if (errors) {
+      setValidationErrs(errors.messages)
+    }
+    
+    setValidationErrs([]);
+    navigate('/')
+
   }
 
   return (
     <>
-    <Header isLoggedIn={false} />
-    <main>
       <h1>Login</h1>
 
       <ErrorDisplay errors={validationErrs} />
@@ -59,7 +58,6 @@ const Login = () => {
           type="submit"
         />
       </form>
-    </main>
     </>
   );
 };

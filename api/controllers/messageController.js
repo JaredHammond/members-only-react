@@ -51,7 +51,9 @@ exports.new_message_post = [
       }
 
       // Success, so send success status
-      res.sendStatus(201);
+      res.status(201).json({
+        code: 201,
+      });
     });
   },
 ];
