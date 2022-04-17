@@ -86,12 +86,22 @@ exports.user_upgrade_level_patch = [
 
     // Check if user is already at the requested level
     if (req.user["is_" + req.body.userLevel]) {
-      return res.status(400).send("User is already a " + req.body.userLevel);
+      return res.status(400).json({
+        messages: ["User is already a " + req.body.userLevel],
+        code: 400,
+        user: null,
+        token: null,
+      });
     }
 
     // Check to make sure a non-member isn't trying to jump straight to admin
     if (req.body.userLevel === "admin" && !req.user.is_member) {
-      return res.sendStatus(403);
+      return res.status(400).json({
+        code: 403,
+        messages: ["Must be member before becoming admin"],
+        user: null,
+        token: null,
+      });
     }
 
     const secrets = {
@@ -101,7 +111,12 @@ exports.user_upgrade_level_patch = [
 
     // Check if they got the secret password right
     if (req.body.secret !== secrets[req.body.userLevel]) {
-      return res.status(400).send("Incorrect secret password");
+      return res.status(400).json({
+        code: 400,
+        messages: ["Incorrect secret password"],
+        user: null,
+        token: null,
+      });
     }
 
     // If the request makes it this far, it's good to update
@@ -123,6 +138,7 @@ exports.user_upgrade_level_patch = [
     });
 
     return res.status(200).json({
+      code: 200,
       user: rest,
       token,
     });

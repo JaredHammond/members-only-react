@@ -7,7 +7,7 @@ function ErrorDisplay(props) {
     <div className="error-display">
       <ul>
         {props.errors.map((err, i) => (
-          <li key={i}>{err.msg}</li>
+          <li key={i}>{err.msg || err}</li>
         ))}
       </ul>
     </div>
