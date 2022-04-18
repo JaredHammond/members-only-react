@@ -170,8 +170,6 @@ Project Link: [https://github.com/JaredHammond/members-only-react](https://githu
 [stars-url]: https://github.com/JaredHammond/members-only-react/stargazers
 [issues-shield]: https://img.shields.io/github/issues/JaredHammond/members-only-react.svg?style=for-the-badge
 [issues-url]: https://github.com/JaredHammond/members-only-react/issues
-[license-shield]: https://img.shields.io/github/license/JaredHammond/members-only-react.svg?style=for-the-badge
-[license-url]: https://github.com/JaredHammond/members-only-react/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/JaredCHammond
 [product-screenshot]: ./images/screenshot.jpg
