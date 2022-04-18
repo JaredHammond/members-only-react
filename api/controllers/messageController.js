@@ -14,7 +14,7 @@ exports.messages_get = async (req, res, next) => {
       // If the user is not authenticated or is not a member, they don't get the author's name
       if (
         req.user?.is_member ||
-        String(message.user._id) === String(req.user._id)
+        String(message.user._id) === String(req?.user?._id)
       ) {
         response.push(cleanUpUserData(message, false));
       } else {
@@ -107,7 +107,9 @@ function cleanUpUserData(message, makeAnonymous) {
 
   // If the user is not authenticated or is not a member, they don't get the author's name
   if (makeAnonymous) {
-    rest.user = "Anonymous";
+    rest.user = {
+      name: "Anonymous",
+    };
     return rest;
   } else {
     rest.user = {

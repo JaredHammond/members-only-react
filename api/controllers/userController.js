@@ -53,7 +53,6 @@ exports.user_post = [
         password_hash: hash,
       }).save((err) => {
         if (err) {
-          console.log(err);
           return next(err);
         }
         res.status(201).json({

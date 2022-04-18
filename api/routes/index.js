@@ -51,10 +51,6 @@ router.post(
 
 router.get(
   "/message/:id",
-  (req, res, next) => {
-    console.log(req);
-    next();
-  },
   passport.authenticate("jwt", { session: false }),
   messageController.message_get
 );

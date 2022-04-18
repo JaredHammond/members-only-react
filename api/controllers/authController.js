@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 exports.login_post = (req, res, next) => {
   passport.authenticate("local", { session: false }, (err, user) => {
     if (err) {
-      console.log("auth error", err);
       return res.status(400).json({
         code: 400,
         message: err,
@@ -50,7 +49,6 @@ exports.verify_token_post = (req, res, next) => {
       user: user,
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({
       code: 400,
       user: null,

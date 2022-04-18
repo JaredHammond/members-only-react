@@ -25,12 +25,10 @@ const SignUp = () => {
       body: JSON.stringify(formInfo),
     });
     let data = await response.json();
-    console.log(data);
     if (data.code !== 201) {
       setValidationErrs(data.messages);
       return;
     }
-    console.log('here')
     setValidationErrs([]);
     navigate("../login");
   }

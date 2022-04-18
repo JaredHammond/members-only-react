@@ -4,7 +4,6 @@ function MessageBlock(props) {
   const { message, user } = props;
 
   function isAuthorOrAdmin() {
-    console.log(message);
     if (!user) {
       return false;
     }
