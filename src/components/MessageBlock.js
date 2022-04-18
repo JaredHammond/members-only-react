@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
+import { DateTime } from "luxon";
 
 function MessageBlock(props) {
   const { message, user } = props;
+
+  const formattedDate = DateTime.fromISO(message.timestamp).toLocaleString(
+    DateTime.DATETIME_SHORT
+  );
 
   function isAuthorOrAdmin() {
     if (!user) {
@@ -15,7 +20,7 @@ function MessageBlock(props) {
       <h3 className="message-title">{message.title}</h3>
       <p className="message-body">{message.message}</p>
       <p className="message-user">{message.user.name}</p>
-      <p className="message-date">{message.date}</p>
+      <p className="message-date">{formattedDate}</p>
       {isAuthorOrAdmin() && (
         <Link
           to={`/message/${message._id}/delete`}

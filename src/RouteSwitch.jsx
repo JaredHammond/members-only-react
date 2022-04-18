@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
 import Profile from "./views/Profile";
 import SignUp from "./views/SignUp";
 import Login from "./views/Login";
