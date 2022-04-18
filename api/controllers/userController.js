@@ -29,7 +29,7 @@ exports.user_post = [
     .escape()
     .custom((value, { req }) => value === req.body.password),
 
-  function (req, res, next) {
+  async function (req, res, next) {
     let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -41,6 +41,19 @@ exports.user_post = [
       });
       return;
     }
+
+    let preexistingUser = await User.find({username: req.body.username}).exec()
+
+    if (preexistingUser) {
+      // User with that username already exists
+      res.status(400);
+      res.json({
+        code: 400,
+        messages: ['User with that username already exists']
+      });
+      return;
+    }
+
     // No validation errors, so hash and save User to database
     bcrypt.hash(req.body.password, 10, (err, hash) => {
       if (err) {
