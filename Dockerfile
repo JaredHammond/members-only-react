@@ -4,6 +4,8 @@ FROM node:lts
 
 ENV NODE_ENV=production
 
+ENV REACT_APP_API_URI="https://jaredhammond.dev/members-only/api"
+
 WORKDIR /app
 
 COPY ["package.json", "package-lock.json", "./"] .

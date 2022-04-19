@@ -8,7 +8,7 @@ function DeleteUser() {
   const navigate = useNavigate();
 
   function handleDeleteAccount() {
-    fetch("http://localhost:3500/user", {
+    fetch(`${process.env.REACT_APP_API_URI}/user`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

@@ -20,7 +20,7 @@ function Homepage() {
       }
     }
 
-    fetch('http://localhost:3500/messages', options)
+    fetch(`${process.env.REACT_APP_API_URI}/messages`, options)
     .then(response => response.json())
     .then(data => setMessages(data))
   }, [user])

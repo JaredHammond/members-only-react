@@ -30,7 +30,7 @@ function Profile() {
       secretLevel = 'member'
     }
 
-    const response = await fetch('http://localhost:3500/user', {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/user`, {
       method: "PATCH",
       headers: {
         'Content-Type': "application/json",
