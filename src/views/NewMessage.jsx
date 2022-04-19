@@ -24,7 +24,7 @@ const NewMessage = (props) => {
     async function postMessage() {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:3500/message/new", {
+      const response = await fetch(`${process.env.REACT_APP_API_URI}/message/new`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

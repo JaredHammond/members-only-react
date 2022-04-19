@@ -12,7 +12,7 @@ function DeleteMessage(props) {
     const token = localStorage.getItem("token");
 
     async function getMessage() {
-      const response = await fetch(`http://localhost:3500/message/${messageId}`,{
+      const response = await fetch(`${process.env.REACT_APP_API_URI}/message/${messageId}`,{
         method: "GET",
         mode: "cors",
         headers: {
@@ -29,7 +29,7 @@ function DeleteMessage(props) {
   }, [])
 
   async function handleDeleteMessage() {
-    const response = await fetch(`http://localhost:3500/message/${messageId}`, {
+    const response = await fetch(`https://jaredhammond.dev/members-only/api/message/${messageId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
