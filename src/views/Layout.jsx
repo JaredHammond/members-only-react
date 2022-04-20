@@ -14,7 +14,7 @@ function Layout() {
       const authToken = localStorage.getItem('token');
 
       if (authToken) {
-        fetch(`${process.env.REACT_APP_API_URI}/verifyToken`, 
+        fetch(`${process.env.REACT_APP_API_URI}verifyToken`, 
         {
           method: "POST",
           mode: "cors",

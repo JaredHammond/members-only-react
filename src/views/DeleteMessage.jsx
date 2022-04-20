@@ -12,7 +12,7 @@ function DeleteMessage(props) {
     const token = localStorage.getItem("token");
 
     async function getMessage() {
-      const response = await fetch(`${process.env.REACT_APP_API_URI}/message/${messageId}`,{
+      const response = await fetch(`${process.env.REACT_APP_API_URI}message/${messageId}`,{
         method: "GET",
         mode: "cors",
         headers: {
