@@ -31,7 +31,7 @@
     A secret message board where anyone can see the messages, but only members know who authored the posts
     <br />
     <br />
-    <a href="https://github.com/JaredHammond/members-only-react">View Demo</a>
+    <a href="https://members-only.jaredhammond.dev">View Demo</a>
     ·
     <a href="https://github.com/JaredHammond/members-only-react/issues">Report Bug</a>
     ·
@@ -67,7 +67,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://members-only.jaredhammond.dev)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

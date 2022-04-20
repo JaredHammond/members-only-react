@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 import { Outlet } from "react-router-dom";
 import { useUserAuth } from "../hooks/useUserAuth";
 import { useEffect, useState } from "react";
@@ -44,6 +45,7 @@ function Layout() {
       <main>
         <Outlet />
       </main>
+      <Footer />
     </>
     )
   }
