@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import NavLink from "./Styled/NavLink";
 import { useUserAuth } from "../hooks/useUserAuth";
+import { Link } from "react-router-dom"
 
 const Navbar = () => {
   const { user, logoutUser } = useUserAuth();
@@ -8,23 +9,23 @@ const Navbar = () => {
   if (user) {
     loginArea = (
       <>
-        <Link className="nav-btn" to="/user">
+        <NavLink link="/user">
           Profile
-        </Link>
-        <button className="nav-btn" onClick={logoutUser}>
+        </NavLink>
+        <NavLink forwardedAs="button" onClick={logoutUser} >
           Logout
-        </button>
+        </NavLink>
       </>
     );
   } else {
     loginArea = (
       <>
-        <Link className="nav-btn" to="/signup">
+        <NavLink link="/signup">
           Sign Up
-        </Link>
-        <Link className="nav-btn" to="/login">
-          Login
-        </Link>
+        </NavLink>
+        <NavLink link="/login">
+          Log In
+        </NavLink>
       </>
     );
   }
