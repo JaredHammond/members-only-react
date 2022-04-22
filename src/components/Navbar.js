@@ -9,10 +9,10 @@ const Navbar = () => {
   if (user) {
     loginArea = (
       <>
-        <NavLink link="/user">
+        <NavLink as={Link} to="/user">
           Profile
         </NavLink>
-        <NavLink forwardedAs="button" onClick={logoutUser} >
+        <NavLink as='button' onClick={logoutUser} >
           Logout
         </NavLink>
       </>
@@ -20,10 +20,10 @@ const Navbar = () => {
   } else {
     loginArea = (
       <>
-        <NavLink link="/signup">
+        <NavLink as={Link} to="/signup">
           Sign Up
         </NavLink>
-        <NavLink link="/login">
+        <NavLink as={Link} to="/login">
           Log In
         </NavLink>
       </>
